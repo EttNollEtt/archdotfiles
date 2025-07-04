@@ -1,0 +1,10 @@
+[language-server.clangd]
+command = "clangd"
+args = ["--enable-config"]
+
+[[language]]
+name = "cpp"
+scope = "source.cpp"
+file-types = ["cpp", "h"]
+indent = { tab-width = 4, unit = "    "}
+language-servers = ["clangd"]

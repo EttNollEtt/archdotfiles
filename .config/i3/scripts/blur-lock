@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+PICTURE=/tmp/i3lock.png
+SCREENSHOT="flameshot full --path $PICTURE"
+
+BLUR="0x12"
+
+$SCREENSHOT
+convert $PICTURE -blur $BLUR $PICTURE
+i3lock -i $PICTURE
+rm $PICTURE

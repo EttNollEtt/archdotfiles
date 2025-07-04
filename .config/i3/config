@@ -1,0 +1,364 @@
+# Should you change your keyboard layout some time, delete
+# this file and re-run i3-config-wizard(1).
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+set $mod Mod4
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+#font pango:Noto Sans Regular 8
+font pango:Noto Sans Regular 8
+
+workspace_layout default
+
+#new_window pixel 1
+default_border pixel 0
+gaps inner 8
+gaps outer -2
+title_align center
+#
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+#bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+ && $refresh_i3status
+#bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%- && $refresh_i3status
+#bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/bin/volume-helper --limit "100" --increase "5"
+bindsym F4 exec --no-startup-id ~/.config/i3/bin/volume-helper --limit "100" --increase "3"
+#bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/bin/volume-helper --limit "100" --decrease "5"
+bindsym F3 exec --no-startup-id ~/.config/i3/bin/volume-helper --limit "100" --decrease "3"
+
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+bindsym XF86AudioPlay exec --no-startup-id playerctl -a play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+#bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight +10 && notify-send "Brightness - $(xbacklight -get | cut -d '.' -f 1)%"
+#bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -10 && notify-send "Brightness - $(xbacklight -get | cut -d '.' -f 1)%"
+
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/bin/brightness_up.sh
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/bin/brightness_down.sh
+#
+# Use Mouse+$mod to drag floating windows to their wanted position#
+floating_modifier $mod
+
+# move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
+
+# start a terminal
+set $terminal ~/.term
+bindsym $mod+Return exec $terminal ghostty
+bindsym $mod+Shift+Return exec $terminal kitty
+bindsym $mod+w exec flatpak run io.github.zen_browser.zen
+bindsym $mod+n exec thunar ~/
+
+# kill focused window
+bindsym $mod+q kill
+
+# start dmenu (a program launcher)
+#bindsym $mod+d exec --no-startup-id dmenu_run
+# A more modern dmenu replacement is rofi:
+
+#bindsym $mod+d exec --no-startup-id rofi -modi drun -show run \
+#        -config ~/.config/rofi/rofidmenu.rasi
+bindsym $mod+Shift+t exec --no-startup-id rofi -show window \
+        -config ~/.config/rofi/rofidmenu.rasi
+
+bindsym $mod+t exec --no-startup-id rofi -no-config -no-lazy-grab -show window -theme ~/.config/i3/bin/launcher.rasi
+
+# There also is i3-dmenu-desktop which only displays applications shipping a
+# .desktop file. It is a wrapper around dmenu, so you need that installed.
+# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+b split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+m fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+g layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+#bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/scripts/empty_workspace
+bindsym $mod+Shift+n exec --no-startup-id ~/.ranger.sh
+# Define names for default workspaces for which we configure key bindings later on.
+#set $ws1 "1"
+#set $ws2 "2"
+#set $ws3 "3"
+#set $ws4 "4"
+#set $ws5 "5"
+#set $ws6 "6"
+#set $ws7 "7"
+#set $ws8 "8"
+#set $ws9 "9"
+#set $ws10 "10"
+
+set $ws1 "1: "
+set $ws2 "2: "
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5: "
+set $ws6 "6: "
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9: "
+set $ws10 "10: "
+
+exec ~/.config/i3/bin/monitor.sh
+
+include ~/.config/i3/bars.conf
+
+set $27i DisplayPort-0
+set $32i DisplayPort-1
+
+workspace $ws1 output $27i
+workspace $ws2 output $27i
+workspace $ws3 output $27i
+workspace $ws4 output $27i
+workspace $ws5 output $27i
+workspace $ws6 output $32i
+workspace $ws7 output $32i
+workspace $ws8 output $32i
+workspace $ws9 output $32i
+workspace $ws10 output $32i
+
+
+#assign [class="wezterm"] $ws1
+#assign [class="(?i)firefox"] $ws2
+#assign [class="Thunar"] $ws6
+#assign [class="Spotify"] $ws5
+assign [class="steam"] $ws4
+assign [class="ZapZap"] $ws3
+
+for_window [class=steam] focus
+for_window [class=steam title="Friends List"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [floating] move position center
+
+for_window [class=zapzap] focus
+
+#for_window [class=wezterm] focus
+#for_window [class=(?i)firefox] focus
+#for_window [class=Thunar] focus
+#for_window [class=Spotify] focus
+
+# switch to workspace
+bindcode $mod+10 workspace $ws1
+bindcode $mod+11 workspace $ws2
+bindcode $mod+12 workspace $ws3
+bindcode $mod+13 workspace $ws4
+bindcode $mod+14 workspace $ws5
+bindcode $mod+15 workspace $ws6
+bindcode $mod+16 workspace $ws7
+bindcode $mod+17 workspace $ws8
+bindcode $mod+18 workspace $ws9
+bindcode $mod+19 workspace $ws10
+
+bindcode Ctrl+10 workspace $ws1
+bindcode Ctrl+11 workspace $ws2
+bindcode Ctrl+12 workspace $ws3
+bindcode Ctrl+13 workspace $ws4
+bindcode Ctrl+14 workspace $ws5
+bindcode Ctrl+15 workspace $ws6
+bindcode Ctrl+16 workspace $ws7
+bindcode Ctrl+17 workspace $ws8
+bindcode Ctrl+18 workspace $ws9
+bindcode Ctrl+19 workspace $ws10
+
+# switch to workspace with numpad keys
+bindcode $mod+87 workspace $ws1
+bindcode $mod+88 workspace $ws2
+bindcode $mod+89 workspace $ws3
+bindcode $mod+83 workspace $ws4
+bindcode $mod+84 workspace $ws5
+bindcode $mod+85 workspace $ws6
+bindcode $mod+79 workspace $ws7
+bindcode $mod+80 workspace $ws8
+bindcode $mod+81 workspace $ws9
+bindcode $mod+90 workspace $ws10
+
+# switch to workspace with numlock numpad keys
+bindcode $mod+Mod2+87 workspace $ws1
+bindcode $mod+Mod2+88 workspace $ws2
+bindcode $mod+Mod2+89 workspace $ws3
+bindcode $mod+Mod2+83 workspace $ws4
+bindcode $mod+Mod2+84 workspace $ws5
+bindcode $mod+Mod2+85 workspace $ws6
+bindcode $mod+Mod2+79 workspace $ws7
+bindcode $mod+Mod2+80 workspace $ws8
+bindcode $mod+Mod2+81 workspace $ws9
+bindcode $mod+Mod2+90 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+######################################
+# color settings for bar and windows #
+######################################
+
+# Define colors variables:
+set $darkbluetrans	#08052be6
+set $darkblue		#08052b
+set $lightblue		#5294e2
+set $urgentred		#e53935
+set $white          #ffffff
+set $black          #000000
+set $purple         #e345ff
+set $darkgrey		#383c4a
+set $grey           #b0b5bd
+set $mediumgrey		#8b8b8b
+set $yellowbrown	#e1b700
+set $border         #5294e2
+set $bordertrans         #5294e200
+
+# define colors for windows:
+#class                      border		bground		text		indicator	child_border
+client.focused		    	$lightblue	$darkblue	$white		$mediumgrey	$border
+client.unfocused	    	$darkblue	$darkblue	$grey		$darkgrey	$bordertrans
+client.focused_inactive		$darkblue	$darkblue	$grey		$black		$bordertrans
+client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
+
+#exec_always --no-startup-id $HOME/polybar-collection/launch.sh
+#exec_always --no-startup-id ~/.config/polybar/launch.sh --cuts
+
+# NEW CONFIGS
+#
+workspace_auto_back_and_forth yes
+
+#bindsym $mod+BackSpace mode "$mode_system"
+bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/powermenu
+bindsym $mod+BackSpace exec --no-startup-id ~/.config/i3/scripts/powermenu
+bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
+bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/blur-lock
+
+exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
+exec_always --no-startup-id feh --bg-fill /home/kalle/Pictures/Wallpapers/a_river_running_through_a_valley.png
+
+exec --no-startup-id /usr/bin/dunst --config ~/.config/dunst/dunstrc
+#exec --no-startup-id /usr/bin/dunst
+#bindsym Print exec --no-startup-id scrot /home/kalle/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/$(date +%Y-%m-%d-%T)-screenshot.png"
+#bindsym Print exec --no-startup-id ~/.config/i3/bin/screenshot.sh full && notify-send "Screenshot saved to ~Pictures/Screenshots/$(date +"%Y-%m-%d-%T")-screenshot.png"
+bindsym Print exec --no-startup-id ~/.config/i3/bin/screenshot.sh full
+#bindsym Shift+Print exec --no-startup-id ~/.config/i3/bin/screenshot.sh window && notify-send "Screenshot saved to ~/Pictures/Screenshots/$(date +"%Y-%m-%d-%T")-screenshot.png"
+bindsym Shift+Print exec --no-startup-id ~/.config/i3/bin/screenshot.sh window
+#bindsym Ctrl+Print exec --no-startup-id ~/.config/i3/bin/screenshot.sh select && notify-send "Screenshot saved to ~/Pictures/Screenshots/$(date +"%Y-%m-%d-%T")-screenshot.png"
+bindsym Ctrl+Print exec --no-startup-id ~/.config/i3/bin/screenshot.sh select
+
+exec_always --no-startup-id setxkbmap -layout se,no -option 'caps:escape,grp:alt_shift_toggle'
+
+focus_follows_mouse no
+
+#exec --no-startup-id xset s 600 dpms 1200 1200 1200
+exec --no-startup-id xset s 600 dpms 1200 1200 1200
+#exec --no-startup-id xautolock -time 15 -locker ~/.config/i3/scripts/blur-lock
+
+bindsym $mod+f exec --no-startup-id ~/.config/i3/bin/rofifinder
+bindsym $mod+d exec --no-startup-id ~/.config/i3/bin/launcher.sh
+bindsym $mod+Shift+d exec --no-startup-id ~/.config/i3/bin/rofi_app_launcher
+
+#exec --no-startup-id ~/.screenlayout/monitor.sh
+
+exec --no-startup-id unclutter --timeout 3
+#exec --no-startup-id ksnip
+
+exec --no-startup-id picom --config  ~/.config/picom/picom.conf
+exec_always --no-startup-id ~/.picomexp
+
+# SEND TO SCRATCHPAD
+#
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+#exec_always --no-startup-id /usr/libexec/gsd-xsettings
+
+bindsym --whole-window $mod+button3 floating toggle
+
+bindsym Mod1+Tab workspace back_and_forth

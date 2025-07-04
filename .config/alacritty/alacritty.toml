@@ -1,0 +1,15 @@
+[general]
+import = [
+"~/.config/alacritty/themes/themes/catppuccin_mocha.toml",
+]
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+size = 13
+
+[terminal]
+shell = "/usr/bin/fish"
+
+
+[window]
+opacity = 0.9

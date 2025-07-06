@@ -13,3 +13,4 @@ shell = "/usr/bin/fish"
 
 [window]
 opacity = 0.9
+decorations = "none"

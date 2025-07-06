@@ -1,0 +1,14 @@
+[opener]
+pic = [
+    { run = 'qimgv "$@"', desc = "Open Image"},
+]
+pdf = [
+    { run = 'okular "$@"', desc = "Open PDF"},
+]
+
+[open]
+prepend_rules = [
+    { name = "*.png", use = "pic"},
+    { name = "*.jpg", use = "pic"},
+    { name = "*.pdf", use = "pdf"},
+]

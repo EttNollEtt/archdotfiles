@@ -1,5 +1,7 @@
-# theme = "tokyonight"
-theme = "nord-night"
+# theme = "horizon-dark"
+# theme = "catppuccin_macchiato"
+theme = "rose_pine_moon"
+# theme = "nord-night"
 #theme = "my_theme.toml"
 
 [editor]

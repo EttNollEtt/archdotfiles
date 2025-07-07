@@ -203,14 +203,33 @@ window-rule {
 window-rule {
     match app-id="Alacritty"
     draw-border-with-background false
-    opacity 0.99
+    opacity 0.999
     // shadow { off; }
+}
+
+window-rule {
+    match app-id="kitty"
+    draw-border-with-background false
+    opacity 0.999
+}
+
+window-rule {
+    match app-id="zed"
+    draw-border-with-background false
+    opacity 0.999
+}
+
+window-rule {
+    match app-id="Zellij"
+    draw-border-with-background false
+    opacity 0.999
 }
 
 binds {
     // `niri msg action do-something`.
     Mod+F1 { show-hotkey-overlay; }
-    Mod+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+    Mod+Shift+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Mod+D hotkey-overlay-title="Run an Application: wofi" { spawn "wofi" "--show" "drun" "I"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+W hotkey-overlay-title="Open the Browser" { spawn "flatpak" "run" "app.zen_browser.zen"; }
@@ -260,22 +279,22 @@ binds {
     // Mod+Ctrl+Up    { focus-monitor-up; }
     // Mod+Ctrl+J     { focus-monitor-down; }
     // Mod+Ctrl+K     { focus-monitor-up; }
-    Mod+Ctrl+Left  { focus-monitor-left; }
-    Mod+Ctrl+Right { focus-monitor-right; }
-    Mod+Ctrl+H     { focus-monitor-left; }
-    Mod+Ctrl+L     { focus-monitor-right; }
-    Ctrl+H { focus-monitor-left; }
-    Ctrl+L { focus-monitor-right; }
+    // Mod+Ctrl+Left  { focus-monitor-left; }
+    // Mod+Ctrl+Right { focus-monitor-right; }
+    // Mod+Ctrl+H     { focus-monitor-left; }
+    // Mod+Ctrl+L     { focus-monitor-right; }
+    Ctrl+1 { focus-monitor-left; }
+    Ctrl+2 { focus-monitor-right; }
 
     // Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
     // Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
     // Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
     // Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
 
-    Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
-    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+    Mod+Ctrl+Left  { move-column-to-monitor-left; }
+    Mod+Ctrl+Right { move-column-to-monitor-right; }
+    Mod+Ctrl+H     { move-column-to-monitor-left; }
+    Mod+Ctrl+L     { move-column-to-monitor-right; }
     Mod+Ctrl+1 { move-column-to-monitor-left; }
     Mod+Ctrl+2 { move-column-to-monitor-right; }
 
@@ -419,5 +438,7 @@ binds {
     // moving the mouse or pressing any other key.
     // Mod+Shift+P { power-off-monitors; }
     // Alt+Tab { focus-workspace-back-and-forth; }
+
+    // Mod+0 { toggle-window-rule-opacity; }
 }
 

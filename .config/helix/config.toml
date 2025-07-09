@@ -1,8 +1,9 @@
 # theme = "horizon-dark"
 # theme = "catppuccin_macchiato"
-theme = "rose_pine_moon"
+# theme = "rose_pine_moon"
 # theme = "nord-night"
 #theme = "my_theme.toml"
+theme = "catppuccin_mocha"
 
 [editor]
 line-number = "relative"

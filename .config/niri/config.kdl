@@ -143,6 +143,7 @@ spawn-at-startup "dunst"
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
 // spawn-at-startup "clipse -listen"
 spawn-at-startup "hyprpaper"
+spawn-at-startup "hypridle"
 spawn-at-startup "xwayland-satellite"
 
 environment {
@@ -231,7 +232,7 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Shift+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Mod+D hotkey-overlay-title="Run an Application: wofi" { spawn "wofi" "--show" "drun" "I"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
     Mod+W hotkey-overlay-title="Open the Browser" { spawn "flatpak" "run" "app.zen_browser.zen"; }
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
